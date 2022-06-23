@@ -1,9 +1,12 @@
 
 import SwiftUI
+import ReadableContent
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!").padding()
+        Color.blue
+            .overlay { Text("Hello, world!") }
+            .readableContent
     }
 }
 
