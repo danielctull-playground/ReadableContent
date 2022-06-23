@@ -4,18 +4,22 @@ import UIKit
 
 extension View {
 
-    public var readableContent: some View {
-        modifier(ReadableContent())
+    public func readableContent(_ edges: Edge.Set = .all) -> some View {
+        modifier(ReadableContent(edges: edges))
     }
 }
 
 private struct ReadableContent: ViewModifier {
 
+    let edges: Edge.Set
     @State private var insets = EdgeInsets()
 
     func body(content: Content) -> some View {
         content
-            .padding(insets)
+            .padding(.top, edges.contains(.top) ? insets.top : 0)
+            .padding(.bottom, edges.contains(.bottom) ? insets.bottom : 0)
+            .padding(.leading, edges.contains(.leading) ? insets.leading : 0)
+            .padding(.trailing, edges.contains(.trailing) ? insets.trailing : 0)
             .background(ReadableContentGuideReader { insets = $0 })
     }
 }
